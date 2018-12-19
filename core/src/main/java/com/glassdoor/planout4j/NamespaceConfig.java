@@ -225,7 +225,8 @@ public class NamespaceConfig {
         checkArgument(input.containsKey(unit),
                 "Supplied input does not have a value for '%s' (primary unit of namespace %s)", unit, name);
         final Object unitVal = input.get(unit);
-        final Long segment = new RandomInteger(0, getTotalSegments()-1, unitVal).eval();
+        final String fullSalt = this.name + ".segment";
+        final Long segment = new RandomInteger(0, getTotalSegments()-1, unitVal, fullSalt).eval();
         logger.debug("Unit {} hashes to segment {}", unitVal, segment);
         return segment.intValue();
     }
@@ -241,7 +242,8 @@ public class NamespaceConfig {
         checkArgument(segments <= availableSegments.size(),
                 "Experiment %s requests %s segments but only %s (out of %s) are available",
                 name, segments, availableSegments.size(), getTotalSegments());
-        final List<Integer> usedSegments = new Sample<>(new ArrayList<>(availableSegments), segments, expName).eval();
+        final String fullSalt = this.name + ".sampled_segments";
+        final List<Integer> usedSegments = new Sample<>(new ArrayList<>(availableSegments), segments, expName, fullSalt).eval();
         availableSegments.removeAll(usedSegments);
         return usedSegments;
     }
