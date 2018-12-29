@@ -1,4 +1,4 @@
-# PlanOut4J
+# PlanOut4J [![Build Status](https://travis-ci.org/yjqg6666/planout4j.svg)](https://travis-ci.org/yjqg6666/planout4j)
 
 Java implementation of Facebook's [PlanOut](https://facebook.github.io/planout/) forked from Glassdoor. 
 
